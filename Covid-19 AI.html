@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-image: url('https://www.wattagnet.com/ext/resources/Images-by-month-year/20_01/coronavirus.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+</style>
+
+<title>Do you think you have COVID-19?</title>
+    <link href="covid19ai.css" rel="stylesheet" type="text/css" />
+
+
+  </head>
+  <body>
+	  <div style="background-color: #03A9F4; padding: 20px;">
+        <h1>Take this quick test to determine if you have COVID-19</h1></div>
+        <Br><Br>
+        <div align="left">
+			Staying safe in this time can be difficult for some people. Some people want to stay safe but sometimes feel like they exposed themselves maybe just a little. If you start experiencing some <i> <a href="https://www.google.com/search?q=symptoms+of+covid&safe=strict&source=hp&ei=BdRxYKflM9Oo5NoP3dikyAU&iflsig=AINFCbYAAAAAYHHiFcQ9rjPyiqYFhuapPteZyMGJ6JFT&oq=symptoms&gs_lcp=Cgdnd3Mtd2l6EAMYADIFCAAQsQMyBQgAELEDMgUIABCxAzIFCAAQsQMyBQgAELEDMgUIABCxAzIFCAAQsQMyBQgAELEDMgUIABCxAzIFCAAQsQM6CAgAELEDEIMBOgIIADoLCC4QsQMQxwEQowI6CAguEMcBEKMCOgUILhCxAzoHCAAQsQMQClDCAljBN2DySGgCcAB4AIABWYgBwAWSAQIxMJgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz" target="_blank"> 
+				symptoms </a> </i> of the <i> <a href="https://www.google.com/search?q=How+deadly+is+COVID-19&safe=strict&source=hp&ei=bCNyYOmHAbPj5NoPtbm_iA4&iflsig=AINFCbYAAAAAYHIxfJftDGOfNEfkby7ngXZdcTJqjxu6&oq=How+deadly+is+COVID-19&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeOhEILhCxAxCDARDHARCjAhCTAjoICAAQsQMQgwE6BQgAELEDOg4ILhCxAxCDARDHARCjAjoLCC4QsQMQxwEQowI6AggAOggILhDHARCjAjoNCAAQsQMQgwEQRhD7AToICC4QxwEQrwE6CAguELEDEIMBOgoIABCxAxBGEPsBOgIILjoFCC4QsQM6BQgAEIYDOggIIRAWEB0QHlDirQJYkc4DYOTSA2gHcAB4AIABmgGIAeQPkgEEMjYuMZgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz&ved=0ahUKEwjp7fvn2fTvAhWzMVkFHbXcD-EQ4dUDCAg&uact=5" target="_blank"> very deadly </a> </i> 
+				Corona virus please notify your doctor. But if you don't want to go through all that hassle to make an appointment with your doctor, or maybe you don't want to risk going to the hospital which could lead to a higher risk of getting the virus and showing more or some symptoms, just try our new program we made. 			
+        </div>  >
+
+  
+        <br><div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+  
+</div></br>  
+<br></br><br></br><br></br><br></br><br></br><br></br>
+        
+        
+      
+<div>Teachable Machine Image Model</div>
+<div align="center"><button type="button" onclick="init()">Start</button></div>
+<div id="webcam-container"></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    
+    const URL = "https://teachablemachine.withgoogle.com/models/pmZftJvpQ/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+ 
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+       
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        
+        const flip = true; 
+        webcam = new tmImage.Webcam(650, 650, flip); 
+        await webcam.setup();
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { 
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        webcam.update();
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    
+    async function predict() {
+       
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+</script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+
+    <style>
+    body {
+     background-image: url('https://th.bing.com/th/id/OIP.BmRr9znL6EQ_7hyUQ9J-gQAAAA?pid=ImgDet&w=179&h=179&c=7');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+  }
+    </style>
+    <style type = "text/css">
+  h1 {
+  border-color: blue;
+  border-width: .25em;
+  border-style: double;
+  }
+h2 {
+  border-color: orange;
+  border-width: 5px;
+  border-style: inset;
+  }
+</style>
+<title>Cough to see if you have Covid-19</title>
+<center><h1> This is the audio version for the Covid-19 Tester </h1></center>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="audiocovid19ai.css" rel="stylesheet" type="text/css" />
+  </head>
+  
+  
+  
+  
+  <div>Teachable Machine Audio Model</div>
+<div align="center"><button type="button" onclick="init()">Start</button></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+
+<script type="text/javascript">
+
+    const URL = "https://teachablemachine.withgoogle.com/models/cgG08yzQP/";
+
+    async function createModel() {
+        const checkpointURL = "https://teachablemachine.withgoogle.com/models/cgG08yzQP/" + "model.json"; // model topology
+        const metadataURL = "https://teachablemachine.withgoogle.com/models/cgG08yzQP/" + "metadata.json"; // model metadata
+
+        const recognizer = speechCommands.create(
+            "BROWSER_FFT",
+            undefined,
+            checkpointURL,
+            metadataURL);
+
+    
+        await recognizer.ensureModelLoaded();
+
+        return recognizer;
+    }
+
+    async function init() {
+        const recognizer = await createModel();
+        const classLabels = recognizer.wordLabels();
+        const labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < classLabels.length; i++) {
+            labelContainer.appendChild(document.createElement("div"));
+        }
+
+      
+        recognizer.listen(result => {
+            const scores = result.scores; 
+         
+            for (let i = 0; i < classLabels.length; i++) {
+                const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+            }
+        }, {
+            includeSpectrogram: true, 
+            probabilityThreshold: 0.75,
+            invokeCallbackOnNoiseAndUnknown: true,
+            overlapFactor: 0.50
+        });
+
+    }
+</script>
+
+  <br></br>
+ <div style="background-color: #FF0000; color: #FFFFFF; padding: 10px;">Below is a video from the CDC on how to stay safe during the Pandemic!</div>
+ <br></br>
+ 
+ <div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+  
+</div>
+
+  <br></br>
+  <br></br><br></br><br></br><br></br>
+  <br></br><br></br><br></br>
+  <center>
+  <iframe height="650" width="600"  
+src="https://www.youtube.com/embed/d914EnpU4Fo">
+</iframe>
+  </center>
+  
+  
+  <body>
+    <script src="script.js"></script>
+  </body>
+
+
+</html>
+
