@@ -1,0 +1,71 @@
+h1 {
+	color:green;
+	text-align: center;
+}
+
+h2 {
+  color: white;
+  font-family: Times New Roman;
+  font-size: 15px;
+  text-align: left;
+ }
+ 
+ h3 {
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px,
+    text-align left;
+ }
+ 
+
+div { 
+  color: white;
+  font-family: Times New Roman;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+boxed {
+	border: 10;
+    font-size: 24px;
+    margin: 10px;
+    padding: 10px;
+	text-align: left;
+}
+
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+:root {
+  --green: #00FF00;
+  --white: #ffffff;
+  --black: #000000;
+  --lightblue: #ADD8E6;
+  --grey: #808080;
+  --yellow:#FFFF00;
+  --orange:#FFA500;
+  --blue: #0000ff;
+  --purple: #800080;
+  --brown: #A52A2A;
+ }
+ 
+p{
+
+	color: green;
+}
+
+
+
+
+
+
